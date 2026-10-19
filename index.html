@@ -1,0 +1,3635 @@
+  <!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Amazônia Control Tower</title>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- LEAFLET - MAPA OPERACIONAL -->
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin="">
+</script>
+  <!-- ==================================================
+     LEITOR DE QR CODE
+     ================================================== -->
+
+<script
+  src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js">
+</script>
+
+
+</head>
+
+<body>                                                                                                                                                                                                    <div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">⌁</div>
+      <div>
+        <h1>Amazônia</h1>
+        <span>CONTROL TOWER</span>
+      </div>
+    </div>
+   <!-- =====================================
+     CONTROLE DA SIDEBAR
+     ===================================== -->
+
+<button
+  type="button"
+  class="sidebar-toggle"
+  id="sidebarToggle"
+  aria-label="Recolher menu lateral"
+  aria-expanded="true"
+>
+
+  <span
+    class="sidebar-toggle-icon"
+    id="sidebarToggleIcon"
+  >
+    ‹
+  </span>
+
+  <span class="sidebar-toggle-text">
+    Recolher menu
+  </span>
+
+</button>
+   <nav>
+
+  <button
+    class="nav-item active"
+    data-section="dashboard"
+    data-tooltip="Dashboard"
+  >
+    <span>▦</span> Dashboard
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-section="entregas"
+    data-tooltip="Entregas"
+  >
+    <span>📦</span> Entregas
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-section="rotas"
+    data-tooltip="Rotas & Modais"
+  >
+    <span>⌁</span> Rotas & Modais
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-section="prioridade"
+    data-tooltip="Priorização"
+  >
+    <span>⚡</span> Priorização
+  </button>
+
+
+  <button
+    class="nav-item"
+    data-section="ia"
+    data-tooltip="Inteligência"
+  >
+    <span>◈</span> Inteligência
+  </button>
+
+</nav>
+
+    <div class="sidebar-bottom">
+      <div class="connection">
+        <span class="pulse"></span>
+        Sistema operacional
+      </div>
+
+      <small>Protótipo acadêmico • v1.0</small>
+    </div>
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">CENTRAL DE OPERAÇÕES</p>
+        <h2 id="pageTitle">Visão geral da operação</h2>
+      </div>
+
+      <div class="top-actions">                                                                                                                                   <!-- ====================================
+     CENTRAL DE NOTIFICAÇÕES
+     ===================================== -->
+
+<div class="notifications">
+
+  <button
+    type="button"
+    class="notification-button"
+    id="notificationButton"
+    aria-label="Abrir notificações"
+    aria-expanded="false"
+  >
+
+    <span class="notification-bell">
+      ♢
+    </span>
+
+    <span
+      class="notification-count"
+      id="notificationCount"
+    >
+      3
+    </span>
+
+  </button>
+
+
+  <!-- PAINEL -->
+
+  <div
+    class="notification-panel"
+    id="notificationPanel"
+  >
+
+    <!-- CABEÇALHO -->
+
+    <div class="notification-header">
+
+      <div>
+
+        <span class="section-label">
+          CENTRAL DE ALERTAS
+        </span>
+
+        <h3>
+          Notificações
+        </h3>
+
+      </div>
+
+      <button
+        type="button"
+        class="mark-read"
+        id="markNotificationsRead"
+      >
+        Marcar como lidas
+      </button>
+
+    </div>
+
+
+    <!-- LISTA -->
+
+    <div
+      class="notification-list"
+      id="notificationList"
+    >
+
+
+      <!-- NOTIFICAÇÃO 1 -->
+
+      <button
+        type="button"
+        class="notification-item unread critical-notification"
+        data-delivery="AMZ-49281"
+      >
+
+        <span class="notification-type critical">
+          !
+        </span>
+
+        <span class="notification-content">
+
+          <strong>
+            Entrega crítica com atraso
+          </strong>
+
+          <span>
+            Medicamento • #AMZ-49281
+          </span>
+
+          <small>
+            ETA atualizado para 18:20
+          </small>
+
+        </span>
+
+        <span class="notification-time">
+          Agora
+        </span>
+
+      </button>
+
+
+      <!-- NOTIFICAÇÃO 2 -->
+
+      <button
+        type="button"
+        class="notification-item unread warning-notification"
+        data-delivery="AMZ-49284"
+      >
+
+        <span class="notification-type warning">
+          !
+        </span>
+
+        <span class="notification-content">
+
+          <strong>
+            Rota requer monitoramento
+          </strong>
+
+          <span>
+            Material médico • #AMZ-49284
+          </span>
+
+          <small>
+            Alteração de +35 min no ETA
+          </small>
+
+        </span>
+
+        <span class="notification-time">
+          8 min
+        </span>
+
+      </button>
+
+
+      <!-- NOTIFICAÇÃO 3 -->
+
+      <button
+        type="button"
+        class="notification-item unread normal-notification"
+        data-delivery="AMZ-49282"
+      >
+
+        <span class="notification-type normal">
+          ✓
+        </span>
+
+        <span class="notification-content">
+
+          <strong>
+            Dados sincronizados
+          </strong>
+
+          <span>
+            Material escolar • #AMZ-49282
+          </span>
+
+          <small>
+            Operação dentro do previsto
+          </small>
+
+        </span>
+
+        <span class="notification-time">
+          14 min
+        </span>
+
+      </button>
+
+
+      <!-- NOTIFICAÇÃO 4 -->
+
+      <button
+        type="button"
+        class="notification-item"
+      >
+
+        <span class="notification-type info">
+          ↻
+        </span>
+
+        <span class="notification-content">
+
+          <strong>
+            Motor de previsão atualizado
+          </strong>
+
+          <span>
+            Rota AM-07
+          </span>
+
+          <small>
+            Nova previsão operacional calculada
+          </small>
+
+        </span>
+
+        <span class="notification-time">
+          26 min
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- RODAPÉ -->
+
+    <div class="notification-footer">
+
+      <span>
+        Última atualização em tempo real
+      </span>
+
+      <button
+        type="button"
+        id="clearNotifications"
+      >
+        Limpar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+        <div class="sync">
+          <span class="sync-dot"></span>
+          <div>
+            <small>Última sincronização</small>
+            <strong id="syncTime">13:42:18</strong>
+          </div>
+        </div>
+
+        <button class="refresh-btn" id="refreshBtn">
+          ↻ Atualizar
+        </button>
+      </div>
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section active">
+<!-- KPI CARDS - INDICADORES PRINCIPAIS -->
+<div class="kpi-grid">
+
+  <div class="kpi-card kpi-primary">
+    <div class="kpi-top">
+      <div class="kpi-icon blue">📦</div>
+      <span class="kpi-trend positive">+8 hoje</span>
+    </div>
+
+    <div class="kpi-content">
+      <strong id="deliveries">184</strong>
+      <span>Entregas em andamento</span>
+    </div>
+
+    <div class="kpi-footer">
+      <span class="status-dot status-blue"></span>
+      Operação ativa
+    </div>
+  </div>
+
+
+  <div class="kpi-card kpi-critical">
+    <div class="kpi-top">
+      <div class="kpi-icon red">!</div>
+      <span class="kpi-trend negative">+3 nas últimas 2h</span>
+    </div>
+
+    <div class="kpi-content">
+      <strong id="critical">27</strong>
+      <span>Entregas críticas</span>
+    </div>
+
+    <div class="kpi-footer danger-text">
+      <span class="status-dot status-red"></span>
+      Requer atenção
+    </div>
+  </div>
+
+
+  <div class="kpi-card kpi-warning">
+    <div class="kpi-top">
+      <div class="kpi-icon yellow">!</div>
+      <span class="kpi-trend negative">+2 hoje</span>
+    </div>
+
+    <div class="kpi-content">
+      <strong id="delayed">8</strong>
+      <span>Rotas atrasadas</span>
+    </div>
+
+    <div class="kpi-footer warning-text">
+      <span class="status-dot status-yellow"></span>
+      Monitoramento necessário
+    </div>
+  </div>
+
+
+  <div class="kpi-card kpi-offline">
+    <div class="kpi-top">
+      <div class="kpi-icon gray">↯</div>
+      <span class="kpi-trend neutral">Offline</span>
+    </div>
+
+    <div class="kpi-content">
+      <strong id="offline">15</strong>
+      <span>Sem sincronização</span>
+    </div>
+
+    <div class="kpi-footer">
+      <span class="status-dot status-gray"></span>
+      Aguardando conexão
+    </div>
+  </div>
+
+</div>
+
+
+<!-- RESUMO OPERACIONAL -->
+<div class="operational-summary">
+
+  <div class="summary-item">
+    <div class="summary-icon">🚤</div>
+
+    <div>
+      <span>Embarcações em rota</span>
+      <strong id="boats">12</strong>
+    </div>
+
+    <small class="summary-status positive">
+      ● Operação normal
+    </small>
+  </div>
+
+
+  <div class="summary-divider"></div>
+
+
+  <div class="summary-item">
+    <div class="summary-icon">⌂</div>
+
+    <div>
+      <span>Comunidades atendidas</span>
+      <strong id="communities">63</strong>
+    </div>
+
+    <small class="summary-status positive">
+      +4 esta semana
+    </small>
+  </div>
+
+
+  <div class="summary-divider"></div>
+
+
+  <div class="summary-item">
+    <div class="summary-icon">◉</div>
+
+    <div>
+      <span>Operação</span>
+      <strong class="operation-online">Online</strong>
+    </div>
+
+    <small class="summary-status positive">
+      ● Sistema operacional
+    </small>
+  </div>
+
+</div>
+     
+      
+
+
+      <!-- MAIN GRID -->
+      <!-- =====================================
+     CENTRAL DE MONITORAMENTO
+     ===================================== -->
+
+<div class="main-grid">
+
+  <!-- MAPA PRINCIPAL -->
+  <div class="panel map-panel">
+
+    <div class="panel-header map-header">
+
+      <div>
+        <span class="section-label">
+          MONITORAMENTO REGIONAL
+        </span>
+
+        <h3>Situação operacional</h3>
+
+        <p class="map-subtitle">
+          Acompanhamento das operações logísticas na região amazônica
+        </p>
+      </div>
+
+      <div class="map-controls">
+
+        <div class="map-live">
+          <span class="live-dot"></span>
+          Monitoramento ativo
+        </div>
+
+        <select id="regionSelect">
+          <option>Todas as regiões</option>
+          <option>Manaus</option>
+          <option>Região Ribeirinha</option>
+          <option>Comunidades isoladas</option>
+          <option>Corredor Fluvial</option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAPA 1MAP
+         ========================= -->
+
+    <div class="real-map-container">
+
+     <!-- MAPA OPERACIONAL LEAFLET -->
+
+<div
+  id="operationalMap"
+  class="operational-map"
+></div>
+      
+<!-- CAMADA OPERACIONAL DO MAPA -->
+
+<div class="map-delivery-layer" id="mapDeliveryLayer">
+
+  <!-- ENTREGA CRÍTICA -->
+
+  <button
+    type="button"
+    class="map-delivery-marker marker-critical"
+    data-delivery="AMZ-49281"
+    style="left: 67%; top: 43%;"
+    aria-label="Entrega AMZ-49281 - Comunidade X"
+  >
+
+    <span class="marker-pulse"></span>
+
+    <span class="marker-icon">
+      !
+    </span>
+
+    <div class="marker-tooltip">
+
+      <strong>
+        #AMZ-49281
+      </strong>
+
+      <span>
+        Medicamento crítico
+      </span>
+
+      <small>
+        Comunidade X • ETA 18:20
+      </small>
+
+    </div>
+
+  </button>
+
+
+  <!-- MATERIAL MÉDICO -->
+
+  <button
+    type="button"
+    class="map-delivery-marker marker-warning"
+    data-delivery="AMZ-49284"
+    style="left: 54%; top: 64%;"
+    aria-label="Entrega AMZ-49284 - Comunidade Z"
+  >
+
+    <span class="marker-pulse"></span>
+
+    <span class="marker-icon">
+      !
+    </span>
+
+    <div class="marker-tooltip">
+
+      <strong>
+        #AMZ-49284
+      </strong>
+
+      <span>
+        Material médico
+      </span>
+
+      <small>
+        Comunidade Z • ETA 16:45
+      </small>
+
+    </div>
+
+  </button>
+
+
+  <!-- MATERIAL ESCOLAR -->
+
+  <button
+    type="button"
+    class="map-delivery-marker marker-normal"
+    data-delivery="AMZ-49282"
+    style="left: 34%; top: 52%;"
+    aria-label="Entrega AMZ-49282 - Escola Y"
+  >
+
+    <span class="marker-pulse"></span>
+
+    <span class="marker-icon">
+      ✓
+    </span>
+
+    <div class="marker-tooltip">
+
+      <strong>
+        #AMZ-49282
+      </strong>
+
+      <span>
+        Material escolar
+      </span>
+
+      <small>
+        Escola Y • ETA 10:00
+      </small>
+
+    </div>
+
+  </button>
+
+
+  <!-- CENTRO LOGÍSTICO -->
+
+  <div
+    class="map-base-marker"
+    style="left: 43%; top: 35%;"
+  >
+
+    <span>
+      ⌂
+    </span>
+
+    <div>
+      <strong>Manaus</strong>
+      <small>Centro operacional</small>
+    </div>
+
+  </div>
+
+</div>
+    </div>
+
+
+    <!-- RODAPÉ DO MAPA -->
+
+    <div class="map-footer">
+
+      <div class="map-status">
+
+        <div>
+          <span class="legend-dot normal"></span>
+          Operação normal
+        </div>
+
+        <div>
+          <span class="legend-dot attention"></span>
+          Atenção
+        </div>
+
+        <div>
+          <span class="legend-dot critical"></span>
+          Crítico
+        </div>
+
+      </div>
+
+
+      <div class="map-operation-info">
+
+        <span>
+          🚤 <strong>12</strong>
+          embarcações
+        </span>
+
+        <span>
+          📍 <strong>63</strong>
+          comunidades
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================
+       ALERTAS OPERACIONAIS
+       ===================================== -->
+
+  <div class="panel alerts-panel">
+
+    <div class="panel-header">
+
+      <div>
+        <span class="section-label">
+          ALERTAS OPERACIONAIS
+        </span>
+
+        <h3>Entregas que exigem atenção</h3>
+      </div>
+
+      <span class="alert-counter">
+        3 ativos
+      </span>
+
+    </div>
+
+
+    <div class="alerts-list">
+
+
+      <!-- ALERTA 1 -->
+
+      <div class="alert-card critical-alert delivery-clickable"
+     data-delivery="AMZ-49281">
+
+        <div class="alert-top">
+
+          <div class="alert-priority">
+
+            <span class="alert-icon">
+              !
+            </span>
+
+            <div>
+              <strong>Medicamento crítico</strong>
+              <small>#AMZ-49281</small>
+            </div>
+
+          </div>
+
+          <span class="alert-level level-critical">
+            NÍVEL 1
+          </span>
+
+        </div>
+
+
+        <div class="alert-destination">
+
+          <span>Destino</span>
+          <strong>Comunidade X</strong>
+
+        </div>
+
+
+        <div class="alert-details">
+
+          <div>
+            <span>Modal</span>
+            <strong>🚤 Embarcação</strong>
+          </div>
+
+          <div>
+            <span>ETA</span>
+            <strong class="eta-danger">
+              18:20
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="alert-message">
+          ⚠ Rota fluvial apresenta atraso
+        </div>
+
+      </div>
+
+
+      <!-- ALERTA 2 -->
+
+      <div class="alert-card warning-alert delivery-clickable"
+     data-delivery="AMZ-49284">
+
+        <div class="alert-top">
+
+          <div class="alert-priority">
+
+            <span class="alert-icon warning-icon">
+              !
+            </span>
+
+            <div>
+              <strong>Material médico</strong>
+              <small>#AMZ-49284</small>
+            </div>
+
+          </div>
+
+          <span class="alert-level level-warning">
+            NÍVEL 2
+          </span>
+
+        </div>
+
+
+        <div class="alert-destination">
+
+          <span>Destino</span>
+          <strong>Comunidade Z</strong>
+
+        </div>
+
+
+        <div class="alert-details">
+
+          <div>
+            <span>Modal</span>
+            <strong>🚤 Embarcação</strong>
+          </div>
+
+          <div>
+            <span>ETA</span>
+            <strong>
+              16:45
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="alert-message warning-message">
+          ⚠ Monitorar condições da rota
+        </div>
+
+      </div>
+
+
+      <!-- ALERTA 3 -->
+
+      <div class="alert-card normal-alert delivery-clickable"
+     data-delivery="AMZ-49282">
+
+        <div class="alert-top">
+
+          <div class="alert-priority">
+
+            <span class="alert-icon normal-icon">
+              ✓
+            </span>
+
+            <div>
+              <strong>Material escolar</strong>
+              <small>#AMZ-49282</small>
+            </div>
+
+          </div>
+
+          <span class="alert-level level-normal">
+            NÍVEL 2
+          </span>
+
+        </div>
+
+
+        <div class="alert-destination">
+
+          <span>Destino</span>
+          <strong>Escola Y</strong>
+
+        </div>
+
+
+        <div class="alert-details">
+
+          <div>
+            <span>Modal</span>
+            <strong>🚤 Embarcação</strong>
+          </div>
+
+          <div>
+            <span>ETA</span>
+            <strong>
+              10:00
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="alert-message normal-message">
+          ✓ Operação dentro do previsto
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BOTÃO -->
+
+    <button
+      class="view-all-alerts"
+      id="showDeliveries"
+    >
+      Ver todas as entregas
+      <span>→</span>
+    </button>
+
+  </div>
+
+</div>
+
+
+      <!-- SECOND ROW -->
+      <div class="three-grid">
+
+        <!-- EVENT TRACKING -->
+        <div class="panel events-panel">
+
+          <div class="panel-header">
+            <div>
+              <span class="section-label">RASTREAMENTO POR EVENTOS</span>
+              <h3>Último Quilômetro Digital</h3>
+            </div>
+
+            <span class="package-id">#AMZ-49281</span>
+          </div>
+
+          <div class="timeline">
+
+            <div class="event completed">
+              <div class="event-point">✓</div>
+              <div>
+                <strong>Objeto recebido</strong>
+                <span>Agência de origem</span>
+                <small>08:12</small>
+              </div>
+            </div>
+
+            <div class="event completed">
+              <div class="event-point">✓</div>
+              <div>
+                <strong>Chegada ao porto</strong>
+                <span>Terminal fluvial</span>
+                <small>09:03</small>
+              </div>
+            </div>
+
+            <div class="event completed">
+              <div class="event-point">✓</div>
+              <div>
+                <strong>Embarcação iniciou viagem</strong>
+                <span>Rota fluvial AM-07</span>
+                <small>09:35</small>
+              </div>
+            </div>
+
+            <div class="event current">
+              <div class="event-point">●</div>
+              <div>
+                <strong>Em trânsito</strong>
+                <span>Próxima comunidade</span>
+                <small>Atualização: 13:42</small>
+              </div>
+            </div>
+
+            <div class="event future">
+              <div class="event-point">○</div>
+              <div>
+                <strong>Chegada ao destino</strong>
+                <span>Comunidade X</span>
+                <small>Previsão: 18:20</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- AI ETA -->
+        <div class="panel ai-panel">
+
+          <div class="ai-header">
+            <div class="ai-icon">◈</div>
+
+            <div>
+              <span class="section-label">MOTOR DE PREVISÃO</span>
+              <h3>ETA Inteligente</h3>
+            </div>
+
+            <span class="ai-tag">IA</span>
+          </div>
+
+          <p class="ai-description">
+            O sistema analisa histórico, rota, modal, duração média,
+            atrasos anteriores e condições disponíveis para recalcular
+            o tempo estimado de chegada.
+          </p>
+
+          <div class="eta-comparison">
+
+            <div>
+              <span>Previsão inicial</span>
+              <strong>16:00</strong>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="eta-new">
+              <span>Nova previsão</span>
+              <strong>18:20</strong>
+            </div>
+
+          </div>
+
+          <div class="prediction">
+            <span>⚠ Alteração prevista</span>
+            <strong>+2h20</strong>
+          </div>
+
+          <small class="ai-note">
+            Motivo detectado: atraso no trecho fluvial.
+          </small>
+
+        </div>
+
+
+        <!-- PRIORITY -->
+        <div class="panel">
+
+          <div class="panel-header">
+            <div>
+              <span class="section-label">DECISÃO OPERACIONAL</span>
+              <h3>Priorização inteligente</h3>
+            </div>
+          </div>
+
+          <div class="priority-list">
+
+            <div class="priority">
+              <span class="priority-number p1">1</span>
+              <div>
+                <strong>Emergencial</strong>
+                <small>Medicamentos críticos</small>
+              </div>
+              <b>07</b>
+            </div>
+
+            <div class="priority">
+              <span class="priority-number p2">2</span>
+              <div>
+                <strong>Essencial</strong>
+                <small>Materiais médicos</small>
+              </div>
+              <b>14</b>
+            </div>
+
+            <div class="priority">
+              <span class="priority-number p3">3</span>
+              <div>
+                <strong>Institucional</strong>
+                <small>Documentos e materiais</small>
+              </div>
+              <b>23</b>
+            </div>
+
+            <div class="priority">
+              <span class="priority-number p4">4</span>
+              <div>
+                <strong>Convencional</strong>
+                <small>Encomendas comuns</small>
+              </div>
+              <b>140</b>
+            </div>
+
+          </div>
+
+          <div class="formula">
+            <span>Prioridade</span>
+            <strong>Urgência + Impacto + Prazo + Risco</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MODAL SECTION -->
+      <div class="panel modal-panel">
+
+        <div class="panel-header">
+          <div>
+            <span class="section-label">LOGÍSTICA MULTIMODAL</span>
+            <h3>Escolha do modal por trecho</h3>
+          </div>
+
+          <span class="decision-badge">DECISÃO OTIMIZADA</span>
+        </div>
+
+        <div class="modal-grid">
+
+          <div class="modal-card">
+            <div class="modal-icon">🏍</div>
+            <strong>Motocicleta / veículo</strong>
+            <span>Comunidades próximas à agência</span>
+            <b>32 rotas</b>
+          </div>
+
+          <div class="modal-card selected">
+            <div class="modal-icon">🚤</div>
+            <strong>Embarcação</strong>
+            <span>Regiões ribeirinhas</span>
+            <b>84 rotas</b>
+          </div>
+
+          <div class="modal-card">
+            <div class="modal-icon">✈</div>
+            <strong>Modal aéreo</strong>
+            <span>Itens extremamente urgentes</span>
+            <b>06 rotas</b>
+          </div>
+
+          <div class="modal-card">
+            <div class="modal-icon">▣</div>
+            <strong>Drone*</strong>
+            <span>Pequenas cargas e locais específicos</span>
+            <b>Viabilidade necessária</b>
+          </div>
+
+        </div>
+
+        <p class="modal-note">
+          * Uso de drones depende de viabilidade operacional, regulatória e de segurança.
+        </p>
+
+      </div>
+
+
+      <!-- SYSTEM EVENT LOG -->
+      <div class="panel log-panel">
+
+        <div class="panel-header">
+          <div>
+            <span class="section-label">FLUXO DE DADOS</span>
+            <h3>Eventos recentes</h3>
+          </div>
+
+          <button class="clear-btn" id="clearLog">Limpar</button>
+        </div>
+
+        <div id="eventLog" class="event-log">
+
+          <div class="log-item">
+            <span class="log-time">13:42</span>
+            <span class="log-icon green-text">●</span>
+            <span>Pacote <b>#AMZ-49281</b> sincronizado com sucesso.</span>
+          </div>
+
+          <div class="log-item">
+            <span class="log-time">13:38</span>
+            <span class="log-icon yellow-text">!</span>
+            <span>Rota <b>AM-07</b> identificada com atraso.</span>
+          </div>
+
+          <div class="log-item">
+            <span class="log-time">13:31</span>
+            <span class="log-icon blue-text">↻</span>
+            <span>ETA recalculado pelo motor de previsão.</span>
+          </div>
+
+          <div class="log-item">
+            <span class="log-time">13:24</span>
+            <span class="log-icon green-text">✓</span>
+            <span>Entrega <b>#AMZ-49270</b> concluída.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+     ENTREGAS
+     ========================================= -->
+
+<section id="entregas" class="section">
+
+  <!-- CABEÇALHO DA PÁGINA -->
+
+  <div class="page-intro deliveries-page-intro">
+
+    <div>
+      <span class="section-label">
+        GESTÃO OPERACIONAL
+      </span>
+
+      <h2>Gestão de entregas</h2>
+
+      <p>
+        Pesquise, filtre e acompanhe as encomendas
+        em operação.
+      </p>
+    </div>
+
+    <div class="deliveries-summary">
+      <span>ENTREGAS MONITORADAS</span>
+      <strong id="deliveriesCount">4</strong>
+    </div>
+
+  </div>
+<!-- ==================================================
+     BOTÃO LEITOR DE QR CODE
+     ================================================== -->
+
+<div class="qr-reader-action">
+
+  <button
+    type="button"
+    id="openQrScannerBtn"
+    class="qr-reader-btn"
+  >
+
+    <span class="qr-reader-icon">
+      ▣
+    </span>
+
+    Ler QR Code
+
+  </button>
+
+</div>
+
+  <!-- =========================================
+       BUSCA E FILTROS
+       ========================================= -->
+
+  <div class="deliveries-toolbar panel">
+
+    <!-- BUSCA -->
+
+    <div class="delivery-search">
+
+      <span class="search-icon">
+        ⌕
+      </span>
+
+      <input
+        type="text"
+        id="deliveriesSearch"
+        placeholder="Buscar por ID, tipo, destino ou rota..."
+        autocomplete="off"
+      >
+
+      <button
+        type="button"
+        class="clear-search"
+        id="clearDeliverySearch"
+        aria-label="Limpar busca"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- FILTROS RÁPIDOS -->
+
+    <div class="quick-filters">
+
+      <button
+        type="button"
+        class="filter-chip active"
+        data-filter="todos"
+      >
+        Todos
+      </button>
+
+      <button
+        type="button"
+        class="filter-chip"
+        data-filter="critico"
+      >
+        <span class="chip-dot red-chip"></span>
+        Críticos
+      </button>
+
+      <button
+        type="button"
+        class="filter-chip"
+        data-filter="transito"
+      >
+        <span class="chip-dot green-chip"></span>
+        Em trânsito
+      </button>
+
+      <button
+        type="button"
+        class="filter-chip"
+        data-filter="atencao"
+      >
+        <span class="chip-dot yellow-chip"></span>
+        Atenção
+      </button>
+
+    </div>
+
+
+    <!-- FILTROS AVANÇADOS -->
+
+    <div class="advanced-filters">
+
+      <div class="filter-group">
+
+        <label for="priorityFilter">
+          Prioridade
+        </label>
+
+        <select id="priorityFilter">
+
+          <option value="todas">
+            Todas
+          </option>
+
+          <option value="emergencial">
+            Nível 1 — Emergencial
+          </option>
+
+          <option value="essencial">
+            Nível 2 — Essencial
+          </option>
+
+          <option value="institucional">
+            Nível 3 — Institucional
+          </option>
+
+          <option value="convencional">
+            Nível 4 — Convencional
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label for="modalFilter">
+          Modal
+        </label>
+
+        <select id="modalFilter">
+
+          <option value="todos">
+            Todos
+          </option>
+
+          <option value="embarcacao">
+            Embarcação
+          </option>
+
+          <option value="veiculo">
+            Veículo
+          </option>
+
+          <option value="aereo">
+            Aéreo
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="reset-filters"
+        id="resetDeliveryFilters"
+      >
+        ↻ Limpar filtros
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       INFORMAÇÕES DA LISTA
+       ========================================= -->
+
+  <div class="deliveries-list-header">
+
+    <div>
+      <strong id="deliveriesResultText">
+        4 entregas encontradas
+      </strong>
+
+      <span>
+        Clique em uma entrega para visualizar os detalhes
+      </span>
+    </div>
+
+    <div class="table-status">
+      <span class="status-dot status-green"></span>
+      Dados operacionais
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       TABELA
+       ========================================= -->
+
+  <div class="table-panel panel deliveries-table-panel">
+
+    <table class="deliveries-table">
+
+      <thead>
+
+  <tr>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="id"
+      >
+        ID
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="tipo"
+      >
+        Tipo
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="destino"
+      >
+        Destino
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="prioridade"
+      >
+        Prioridade
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="modal"
+      >
+        Modal
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="rota"
+      >
+        Rota
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="eta"
+      >
+        ETA
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th>
+      <button
+        type="button"
+        class="sort-button"
+        data-sort="status"
+      >
+        Status
+        <span class="sort-icon">↕</span>
+      </button>
+    </th>
+
+    <th></th>
+
+  </tr>
+
+</thead>
+
+
+      <tbody id="deliveriesTableBody">
+
+
+        <!-- ENTREGA 1 -->
+
+        <tr
+          class="delivery-row"
+          data-delivery="AMZ-49281"
+          data-status="critico"
+          data-priority="emergencial"
+          data-modal="embarcacao"
+        >
+
+          <td>
+            <strong class="delivery-id">
+              #AMZ-49281
+            </strong>
+          </td>
+
+          <td>
+            Medicamento
+          </td>
+
+          <td>
+            Comunidade X
+          </td>
+
+          <td>
+            <span class="tag critical-tag">
+              Emergencial
+            </span>
+          </td>
+
+          <td>
+            🚤 Embarcação
+          </td>
+
+          <td>
+            AM-07
+          </td>
+
+          <td>
+            <strong class="table-eta critical-eta">
+              18:20
+            </strong>
+          </td>
+
+          <td>
+            <span class="status critical-status">
+              Crítico
+            </span>
+          </td>
+
+          <td>
+            <button
+              type="button"
+              class="row-action"
+              aria-label="Ver detalhes da entrega AMZ-49281"
+            >
+              →
+            </button>
+          </td>
+
+        </tr>
+
+
+        <!-- ENTREGA 2 -->
+
+        <tr
+          class="delivery-row"
+          data-delivery="AMZ-49282"
+          data-status="transito"
+          data-priority="essencial"
+          data-modal="embarcacao"
+        >
+
+          <td>
+            <strong class="delivery-id">
+              #AMZ-49282
+            </strong>
+          </td>
+
+          <td>
+            Material escolar
+          </td>
+
+          <td>
+            Escola Y
+          </td>
+
+          <td>
+            <span class="tag essential-tag">
+              Essencial
+            </span>
+          </td>
+
+          <td>
+            🚤 Embarcação
+          </td>
+
+          <td>
+            AM-04
+          </td>
+
+          <td>
+            <strong class="table-eta">
+              10:00
+            </strong>
+          </td>
+
+          <td>
+            <span class="status normal-status">
+              Em trânsito
+            </span>
+          </td>
+
+          <td>
+            <button
+              type="button"
+              class="row-action"
+              aria-label="Ver detalhes da entrega AMZ-49282"
+            >
+              →
+            </button>
+          </td>
+
+        </tr>
+
+
+        <!-- ENTREGA 3 -->
+
+        <tr
+          class="delivery-row"
+          data-delivery="AMZ-49283"
+          data-status="transito"
+          data-priority="institucional"
+          data-modal="veiculo"
+        >
+
+          <td>
+            <strong class="delivery-id">
+              #AMZ-49283
+            </strong>
+          </td>
+
+          <td>
+            Documento
+          </td>
+
+          <td>
+            Comunidade Z
+          </td>
+
+          <td>
+            <span class="tag institutional-tag">
+              Institucional
+            </span>
+          </td>
+
+          <td>
+            🏍 Veículo
+          </td>
+
+          <td>
+            AM-12
+          </td>
+
+          <td>
+            <strong class="table-eta">
+              15:40
+            </strong>
+          </td>
+
+          <td>
+            <span class="status normal-status">
+              Em trânsito
+            </span>
+          </td>
+
+          <td>
+            <button
+              type="button"
+              class="row-action"
+              aria-label="Ver detalhes da entrega AMZ-49283"
+            >
+              →
+            </button>
+          </td>
+
+        </tr>
+
+
+        <!-- ENTREGA 4 -->
+
+        <tr
+          class="delivery-row"
+          data-delivery="AMZ-49284"
+          data-status="atencao"
+          data-priority="essencial"
+          data-modal="aereo"
+        >
+
+          <td>
+            <strong class="delivery-id">
+              #AMZ-49284
+            </strong>
+          </td>
+
+          <td>
+            Material médico
+          </td>
+
+          <td>
+            Comunidade W
+          </td>
+
+          <td>
+            <span class="tag essential-tag">
+              Essencial
+            </span>
+          </td>
+
+          <td>
+            ✈ Aéreo
+          </td>
+
+          <td>
+            FL-03
+          </td>
+
+          <td>
+            <strong class="table-eta warning-eta">
+              14:30
+            </strong>
+          </td>
+
+          <td>
+            <span class="status warning-status">
+              Atenção
+            </span>
+          </td>
+
+          <td>
+            <button
+              type="button"
+              class="row-action"
+              aria-label="Ver detalhes da entrega AMZ-49284"
+            >
+              →
+            </button>
+          </td>
+
+        </tr>
+
+
+      </tbody>
+
+    </table>
+
+    <!-- =========================================
+     PAGINAÇÃO
+     ========================================= -->
+
+<div
+  class="deliveries-pagination"
+  id="deliveriesPagination"
+>
+
+  <div class="pagination-info">
+
+    <span>
+      Exibindo
+      <strong id="paginationStart">1</strong>
+      –
+      <strong id="paginationEnd">4</strong>
+      de
+      <strong id="paginationTotal">4</strong>
+    </span>
+
+  </div>
+
+
+  <div class="pagination-controls">
+
+    <label for="pageSize">
+      Por página
+    </label>
+
+    <select id="pageSize">
+
+      <option value="5">
+        5
+      </option>
+
+      <option value="10" selected>
+        10
+      </option>
+
+      <option value="20">
+        20
+      </option>
+
+    </select>
+
+
+    <button
+      type="button"
+      class="pagination-button"
+      id="previousPage"
+      aria-label="Página anterior"
+    >
+      ←
+    </button>
+
+
+    <span
+      class="pagination-page"
+      id="paginationPage"
+    >
+      Página 1 de 1
+    </span>
+
+
+    <button
+      type="button"
+      class="pagination-button"
+      id="nextPage"
+      aria-label="Próxima página"
+    >
+      →
+    </button>
+
+  </div>
+
+</div>
+
+    <!-- NENHUM RESULTADO -->
+
+    <div
+      class="no-deliveries"
+      id="noDeliveries"
+      hidden
+    >
+
+      <span>⌕</span>
+
+      <strong>
+        Nenhuma entrega encontrada
+      </strong>
+
+      <p>
+        Tente alterar a busca ou remover alguns filtros.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+    <!-- ROTAS -->
+    <!-- =========================================
+     ETAPA 9 - ROTAS & MODAIS
+     ========================================= -->
+
+<section id="rotas" class="section">
+
+  <!-- CABEÇALHO -->
+
+  <div class="page-intro routes-header">
+
+    <div>
+
+      <span class="section-label">
+        PLANEJAMENTO MULTIMODAL
+      </span>
+
+      <h2>
+        Rotas & Modais
+      </h2>
+
+      <p>
+        Compare alternativas de transporte,
+        visualize o percurso e escolha a melhor
+        estratégia para cada entrega.
+      </p>
+
+    </div>
+
+    <div class="routes-system-status">
+
+      <span class="live-dot"></span>
+
+      <div>
+        <strong>Sistema operacional</strong>
+        <small>Simulação em tempo real</small>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       PLANEJADOR + MINI MAPA
+       ========================================= -->
+
+  <div class="route-planner-grid">
+
+
+    <!-- =========================
+         PLANEJADOR
+         ========================= -->
+
+    <div class="panel route-planner-panel">
+
+      <div class="route-panel-title">
+
+        <div>
+
+          <span class="section-label">
+            PLANEJADOR
+          </span>
+
+          <h3>
+            Planejar entrega
+          </h3>
+
+        </div>
+
+        <span class="planner-status">
+          SIMULAÇÃO
+        </span>
+
+      </div>
+
+
+      <!-- ENTREGA -->
+
+      <div class="planner-field">
+
+        <label for="routeDeliverySelect">
+          Entrega
+        </label>
+
+        <select id="routeDeliverySelect">
+
+          <option value="AMZ-49281">
+            AMZ-49281
+          </option>
+
+          <option value="AMZ-49284">
+            AMZ-49284
+          </option>
+
+          <option value="AMZ-49282">
+            AMZ-49282
+          </option>
+
+          <option value="AMZ-49290">
+            AMZ-49290
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- ORIGEM -->
+
+      <div class="planner-field">
+
+        <label for="routeOrigin">
+          Origem
+        </label>
+
+        <select id="routeOrigin">
+
+          <option value="manaus">
+            Centro Operacional Manaus
+          </option>
+
+          <option value="belem">
+            Centro Operacional Belém
+          </option>
+
+          <option value="santarem">
+            Unidade Santarém
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- DESTINO -->
+
+      <div class="planner-field">
+
+        <label for="routeDestination">
+          Destino
+        </label>
+
+        <select id="routeDestination">
+
+          <option value="comunidade-x">
+            Comunidade X
+          </option>
+
+          <option value="comunidade-solimoes">
+            Comunidade Solimões
+          </option>
+
+          <option value="base-ribeirinha">
+            Base Ribeirinha
+          </option>
+
+          <option value="comunidade-arara">
+            Comunidade Arara
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =====================================
+           DADOS DA CARGA
+           ===================================== -->
+
+      <div class="cargo-information">
+
+        <div class="cargo-information-header">
+
+          <span>
+            DADOS DA CARGA
+          </span>
+
+          <strong id="routeCargoId">
+            AMZ-49281
+          </strong>
+
+        </div>
+
+
+        <div class="cargo-data-grid">
+
+          <div>
+
+            <span>
+              Produto
+            </span>
+
+            <strong id="routeCargoType">
+              Medicamento
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Peso
+            </span>
+
+            <strong id="routeCargoWeight">
+              2,4 kg
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Prioridade
+            </span>
+
+            <strong
+              id="routeCargoPriority"
+              class="cargo-critical"
+            >
+              Emergencial
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Volume
+            </span>
+
+            <strong id="routeCargoVolume">
+              Pequeno
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="calculate-route-button"
+        id="calculateRoute"
+      >
+        ◈ Analisar melhor rota
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         MINI MAPA
+         ========================= -->
+
+    <div class="panel route-preview-panel">
+
+      <div class="route-preview-header">
+
+        <div>
+
+          <span class="section-label">
+            PREVIEW DA ROTA
+          </span>
+
+          <h3>
+            Percurso operacional
+          </h3>
+
+        </div>
+
+
+        <div
+          class="route-preview-modal"
+          id="routePreviewModal"
+        >
+
+          <span>
+            🚤
+          </span>
+
+          <strong>
+            Aquaviário
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- MAPA -->
+
+         <!-- =========================================
+     MINI MAPA DO PACOTE
+     ========================================= -->
+
+<div class="mini-route-map package-route-map">
+
+  <!-- CABEÇALHO INTERNO -->
+
+  <div class="package-map-header">
+
+    <div class="package-route-title">
+
+      <span
+        class="package-route-code"
+        id="packageRouteCode"
+      >
+        F7
+      </span>
+
+      <div>
+        <strong id="packageRouteName">
+          Belém → Breves → Gurupá
+        </strong>
+
+        <small>
+          Percurso previsto do pacote
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- CONTROLES -->
+
+    <div class="package-map-controls">
+
+      <button
+        type="button"
+        id="packageMapZoomIn"
+        aria-label="Ampliar mapa"
+        title="Ampliar"
+      >
+        +
+      </button>
+
+      <button
+        type="button"
+        id="packageMapZoomOut"
+        aria-label="Reduzir mapa"
+        title="Reduzir"
+      >
+        −
+      </button>
+
+      <button
+        type="button"
+        id="packageMapReset"
+        aria-label="Centralizar mapa"
+        title="Centralizar"
+      >
+        ⌖
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================
+       ÁREA DO MAPA
+       ===================================== -->
+
+  <div
+    class="package-map-viewport"
+    id="packageMapViewport"
+  >
+
+    <svg
+      class="package-map-svg"
+      id="packageMapSvg"
+      viewBox="0 0 760 330"
+      aria-label="Percurso do pacote selecionado"
+    >
+
+      <defs>
+
+        <!-- FUNDO CARTOGRÁFICO -->
+
+        <linearGradient
+          id="packageMapBackground"
+          x1="0"
+          y1="0"
+          x2="1"
+          y2="1"
+        >
+
+          <stop
+            offset="0%"
+            stop-color="#eef6f2"
+          />
+
+          <stop
+            offset="100%"
+            stop-color="#e2eee8"
+          />
+
+        </linearGradient>
+
+
+        <!-- SOMBRA DA ROTA -->
+
+        <filter id="packageRouteGlow">
+
+          <feGaussianBlur
+            stdDeviation="3"
+            result="blur"
+          />
+
+          <feMerge>
+
+            <feMergeNode in="blur" />
+
+            <feMergeNode
+              in="SourceGraphic"
+            />
+
+          </feMerge>
+
+        </filter>
+
+
+        <!-- SETA -->
+
+        <marker
+          id="packageRouteArrow"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="5"
+          markerHeight="5"
+          orient="auto"
+        >
+
+          <path
+            d="M 0 0 L 10 5 L 0 10 Z"
+            class="package-route-arrow"
+          />
+
+        </marker>
+
+      </defs>
+
+
+      <!-- =====================================
+           FUNDO CLARO
+           ===================================== -->
+
+      <rect
+        width="760"
+        height="330"
+        fill="url(#packageMapBackground)"
+      />
+
+
+      <!-- =====================================
+           ÁREAS GEOGRÁFICAS SUAVES
+           ===================================== -->
+
+      <path
+        class="package-map-land"
+        d="
+          M -20 35
+          C 90 5,
+            160 30,
+            230 18
+
+          C 320 5,
+            380 40,
+            455 27
+
+          C 550 10,
+            635 30,
+            790 0
+
+          L 790 145
+
+          C 680 165,
+            610 145,
+            525 165
+
+          C 430 185,
+            365 155,
+            290 175
+
+          C 200 198,
+            115 160,
+            -20 195
+
+          Z
+        "
+      />
+
+
+      <path
+        class="package-map-land secondary"
+        d="
+          M -20 245
+
+          C 85 220,
+            155 255,
+            235 238
+
+          C 325 220,
+            410 270,
+            495 240
+
+          C 590 205,
+            655 230,
+            790 190
+
+          L 790 350
+          L -20 350
+
+          Z
+        "
+      />
+
+
+      <!-- =====================================
+           RIOS / CANAIS
+           ===================================== -->
+
+      <path
+        class="package-map-river main"
+        d="
+          M -30 205
+
+          C 90 160,
+            155 230,
+            255 182
+
+          C 355 135,
+            420 220,
+            520 160
+
+          C 610 105,
+            680 135,
+            790 85
+        "
+      />
+
+
+      <path
+        class="package-map-river"
+        d="
+          M 165 -20
+
+          C 175 75,
+            230 100,
+            255 182
+        "
+      />
+
+
+      <path
+        class="package-map-river"
+        d="
+          M 520 160
+
+          C 500 215,
+            535 260,
+            555 350
+        "
+      />
+
+
+      <path
+        class="package-map-river thin"
+        d="
+          M 365 0
+
+          C 380 70,
+            405 105,
+            430 150
+        "
+      />
+
+
+      <!-- =====================================
+           ESTRADAS / REFERÊNCIAS DISCRETAS
+           ===================================== -->
+
+      <path
+        class="package-map-road"
+        d="
+          M 35 85
+          Q 180 125
+          315 90
+
+          T 650 110
+        "
+      />
+
+
+      <path
+        class="package-map-road"
+        d="
+          M 125 285
+          Q 270 255
+          390 280
+
+          T 720 250
+        "
+      />
+
+
+      <!-- =====================================
+           A ROTA SERÁ DESENHADA PELO JS
+           ===================================== -->
+
+      <path
+        id="packageActiveRoute"
+        class="package-active-route modal-aquaviario"
+        d="
+          M 640 235
+          Q 470 205
+          365 170
+
+          Q 245 150
+          125 205
+        "
+        marker-end="url(#packageRouteArrow)"
+      />
+
+
+      <!-- =====================================
+           PONTOS INTERMEDIÁRIOS
+           O JavaScript mostrará somente os usados
+           ===================================== -->
+
+      <g
+        id="packageIntermediate1"
+        class="package-map-stop"
+      >
+
+        <circle
+          cx="365"
+          cy="170"
+          r="7"
+        />
+
+        <text
+          x="365"
+          y="146"
+          text-anchor="middle"
+        >
+          Breves
+        </text>
+
+      </g>
+
+
+      <g
+        id="packageIntermediate2"
+        class="package-map-stop hidden"
+      >
+
+        <circle
+          cx="0"
+          cy="0"
+          r="7"
+        />
+
+        <text
+          x="0"
+          y="-18"
+          text-anchor="middle"
+        >
+          Apoio
+        </text>
+
+      </g>
+
+
+      <g
+        id="packageIntermediate3"
+        class="package-map-stop hidden"
+      >
+
+        <circle
+          cx="0"
+          cy="0"
+          r="7"
+        />
+
+        <text
+          x="0"
+          y="-18"
+          text-anchor="middle"
+        >
+          Apoio
+        </text>
+
+      </g>
+
+
+      <!-- =====================================
+           ORIGEM
+           ===================================== -->
+
+      <g
+        id="packageMapOrigin"
+        class="package-map-point origin"
+      >
+
+        <circle
+          cx="640"
+          cy="235"
+          r="10"
+        />
+
+        <circle
+          cx="640"
+          cy="235"
+          r="18"
+          class="point-ring"
+        />
+
+        <text
+          x="640"
+          y="272"
+          text-anchor="middle"
+          id="packageMapOriginName"
+        >
+          BELÉM
+        </text>
+
+      </g>
+
+
+      <!-- =====================================
+           DESTINO
+           ===================================== -->
+
+      <g
+        id="packageMapDestination"
+        class="package-map-point destination"
+      >
+
+        <circle
+          cx="125"
+          cy="205"
+          r="10"
+        />
+
+        <circle
+          cx="125"
+          cy="205"
+          r="18"
+          class="point-ring"
+        />
+
+        <text
+          x="125"
+          y="242"
+          text-anchor="middle"
+          id="packageMapDestinationName"
+        >
+          GURUPÁ
+        </text>
+
+      </g>
+
+
+      <!-- =====================================
+           TEXTO DE CONTEXTO
+           ===================================== -->
+
+      <text
+        x="570"
+        y="62"
+        class="package-map-area-name"
+      >
+        PARÁ
+      </text>
+
+
+      <!-- NORTE -->
+
+      <g
+        class="package-map-north"
+        transform="translate(705 70)"
+      >
+
+        <text
+          x="0"
+          y="-15"
+          text-anchor="middle"
+        >
+          N
+        </text>
+
+        <path
+          d="
+            M 0 -9
+            L -6 7
+            L 0 3
+            L 6 7
+            Z
+          "
+        />
+
+      </g>
+
+    </svg>
+
+  </div>
+
+
+  <!-- =====================================
+       LEGENDA PEQUENA
+       ===================================== -->
+
+  <div class="package-map-legend">
+
+    <div>
+      <span class="package-legend-point origin"></span>
+      Origem
+    </div>
+
+    <div>
+      <span class="package-legend-point stop"></span>
+      Parada
+    </div>
+
+    <div>
+      <span class="package-legend-route"></span>
+      Percurso
+    </div>
+
+    <div>
+      <span class="package-legend-point destination"></span>
+      Destino
+    </div>
+
+  </div>
+
+</div>
+
+
+      <!-- INFORMAÇÕES ABAIXO DO MAPA -->
+
+      <div class="route-preview-information">
+
+        <div>
+
+          <span>
+            Distância estimada
+          </span>
+
+          <strong id="previewDistance">
+            126 km
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            ETA
+          </span>
+
+          <strong id="previewEta">
+            5h 40min
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Etapas
+          </span>
+
+          <strong id="previewStages">
+            3
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       COMPARAÇÃO DOS MODAIS
+       ========================================= -->
+
+  <div class="modal-comparison-section">
+
+    <div class="comparison-header">
+
+      <div>
+
+        <span class="section-label">
+          ANÁLISE OPERACIONAL
+        </span>
+
+        <h3>
+          Comparação de modais
+        </h3>
+
+      </div>
+
+      <p>
+        Selecione um modal para visualizar
+        o percurso correspondente no mapa.
+      </p>
+
+    </div>
+
+
+    <div class="modal-comparison-grid">
+
+
+      <!-- AQUAVIÁRIO -->
+
+      <button
+        type="button"
+        class="transport-modal-card active recommended"
+        data-transport-modal="aquaviario"
+      >
+
+        <div class="modal-card-top">
+
+          <div class="transport-modal-icon">
+            🚤
+          </div>
+
+          <div>
+
+            <span>
+              AQUAVIÁRIO
+            </span>
+
+            <strong>
+              Embarcação
+            </strong>
+
+          </div>
+
+          <span class="recommended-badge">
+            RECOMENDADO
+          </span>
+
+        </div>
+
+
+        <div class="modal-metrics">
+
+          <div>
+            <span>ETA</span>
+            <strong>5h 40min</strong>
+          </div>
+
+          <div>
+            <span>Risco</span>
+            <strong class="risk-medium">
+              Médio
+            </strong>
+          </div>
+
+          <div>
+            <span>Capacidade</span>
+            <strong>
+              Alta
+            </strong>
+          </div>
+
+          <div>
+            <span>Adequação</span>
+            <strong>
+              94%
+            </strong>
+          </div>
+
+        </div>
+
+      </button>
+
+
+      <!-- TERRESTRE -->
+
+      <button
+        type="button"
+        class="transport-modal-card"
+        data-transport-modal="terrestre"
+      >
+
+        <div class="modal-card-top">
+
+          <div class="transport-modal-icon">
+            🚚
+          </div>
+
+          <div>
+
+            <span>
+              TERRESTRE
+            </span>
+
+            <strong>
+              Veículo
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-metrics">
+
+          <div>
+            <span>ETA</span>
+            <strong>7h 20min</strong>
+          </div>
+
+          <div>
+            <span>Risco</span>
+            <strong class="risk-high">
+              Alto
+            </strong>
+          </div>
+
+          <div>
+            <span>Capacidade</span>
+            <strong>
+              Média
+            </strong>
+          </div>
+
+          <div>
+            <span>Adequação</span>
+            <strong>
+              61%
+            </strong>
+          </div>
+
+        </div>
+
+      </button>
+
+
+      <!-- AÉREO -->
+
+      <button
+        type="button"
+        class="transport-modal-card"
+        data-transport-modal="aereo"
+      >
+
+        <div class="modal-card-top">
+
+          <div class="transport-modal-icon">
+            ✈
+          </div>
+
+          <div>
+
+            <span>
+              AÉREO
+            </span>
+
+            <strong>
+              Aeronave
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-metrics">
+
+          <div>
+            <span>ETA</span>
+            <strong>1h 50min</strong>
+          </div>
+
+          <div>
+            <span>Risco</span>
+            <strong class="risk-low">
+              Baixo
+            </strong>
+          </div>
+
+          <div>
+            <span>Capacidade</span>
+            <strong>
+              Limitada
+            </strong>
+          </div>
+
+          <div>
+            <span>Adequação</span>
+            <strong>
+              79%
+            </strong>
+          </div>
+
+        </div>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       RECOMENDAÇÃO
+       ========================================= -->
+
+  <div class="panel modal-recommendation">
+
+    <div class="recommendation-icon">
+      ◈
+    </div>
+
+    <div class="recommendation-main">
+
+      <span>
+        RECOMENDAÇÃO DO SISTEMA
+      </span>
+
+      <h3>
+        🚤 Embarcação
+      </h3>
+
+      <p>
+        Melhor equilíbrio entre capacidade,
+        acesso à região, peso da carga,
+        disponibilidade e risco operacional.
+      </p>
+
+    </div>
+
+
+    <div class="recommendation-score">
+
+      <span>
+        ADEQUAÇÃO
+      </span>
+
+      <strong>
+        94%
+      </strong>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+    <!-- PRIORIDADE -->
+    <section id="prioridade" class="section">
+
+      <div class="page-intro">
+        <span class="section-label">INTELIGÊNCIA OPERACIONAL</span>
+        <h2>Priorização inteligente</h2>
+        <p>
+          A prioridade considera urgência, impacto social, prazo e risco logístico.
+        </p>
+      </div>
+
+      <div class="priority-big-grid">
+
+        <div class="priority-big emergency">
+          <span>NÍVEL 1</span>
+          <strong>Emergencial</strong>
+          <p>Medicamentos críticos e itens indispensáveis.</p>
+          <b>07 entregas</b>
+        </div>
+
+        <div class="priority-big essential">
+          <span>NÍVEL 2</span>
+          <strong>Essencial</strong>
+          <p>Materiais médicos e escolares urgentes.</p>
+          <b>14 entregas</b>
+        </div>
+
+        <div class="priority-big institutional">
+          <span>NÍVEL 3</span>
+          <strong>Institucional</strong>
+          <p>Documentos e materiais administrativos.</p>
+          <b>23 entregas</b>
+        </div>
+
+        <div class="priority-big conventional">
+          <span>NÍVEL 4</span>
+          <strong>Convencional</strong>
+          <p>Encomendas sem urgência especial.</p>
+          <b>140 entregas</b>
+        </div>
+
+      </div>
+
+      <div class="formula-big">
+        <span>ALGORITMO DE PRIORIDADE</span>
+        <strong>Urgência + Impacto Social + Prazo + Risco Logístico</strong>
+      </div>
+
+    </section>
+
+
+    <!-- IA -->
+    <section id="ia" class="section">
+
+      <div class="page-intro">
+        <span class="section-label">INTELIGÊNCIA OPERACIONAL</span>
+        <h2>Motor de previsão</h2>
+        <p>Simulação de como a inteligência artificial pode apoiar a operação.</p>
+      </div>
+
+      <div class="ai-dashboard">
+
+        <div class="ai-big-card">
+
+          <div class="ai-symbol">◈</div>
+
+          <span class="section-label">ETA PREDICTION ENGINE</span>
+
+          <h3>Previsão de chegada</h3>
+
+          <p>
+            O sistema utiliza dados históricos e operacionais para
+            recalcular automaticamente a previsão de chegada.
+          </p>
+
+          <div class="ai-data">
+
+            <div>
+              <span>Histórico</span>
+              <b>✓</b>
+            </div>
+
+            <div>
+              <span>Rota</span>
+              <b>✓</b>
+            </div>
+
+            <div>
+              <span>Modal</span>
+              <b>✓</b>
+            </div>
+
+            <div>
+              <span>Atrasos</span>
+              <b>✓</b>
+            </div>
+
+            <div>
+              <span>Condições ambientais</span>
+              <b>✓</b>
+            </div>
+
+          </div>
+
+          <button class="simulate-btn" id="simulateAI">
+            Simular novo ETA
+          </button>
+
+          <div id="aiResult" class="ai-result">
+            <span>ETA calculado</span>
+            <strong>18:20</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+<!-- =========================================
+     PAINEL DE DETALHES DA ENTREGA
+     ========================================= -->
+
+<div class="delivery-overlay" id="deliveryOverlay"></div>
+
+<aside class="delivery-drawer" id="deliveryDrawer">
+
+  <!-- CABEÇALHO -->
+
+  <div class="drawer-header">
+
+    <div>
+      <span class="drawer-label">
+        DETALHES DA ENTREGA
+      </span>
+
+      <h2 id="drawerPackageId">
+        #AMZ-49281
+      </h2>
+    </div>
+
+    <button
+      class="drawer-close"
+      id="closeDeliveryDrawer"
+      aria-label="Fechar detalhes"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <!-- STATUS -->
+
+  <div class="drawer-status">
+
+    <div>
+      <span
+        class="drawer-priority critical"
+        id="drawerPriority"
+      >
+        NÍVEL 1 — EMERGENCIAL
+      </span>
+
+      <h3 id="drawerProduct">
+        Medicamento crítico
+      </h3>
+
+      <p id="drawerStatus">
+        Em trânsito
+      </p>
+    </div>
+
+    <span class="drawer-live">
+      ● ATIVO
+    </span>
+
+  </div>
+
+
+  <!-- ORIGEM / DESTINO -->
+
+  <div class="drawer-route">
+
+    <div class="route-point">
+
+      <span class="route-marker origin"></span>
+
+      <div>
+        <small>ORIGEM</small>
+
+        <strong id="drawerOrigin">
+          Agência Manaus
+        </strong>
+      </div>
+
+    </div>
+
+
+    <div class="route-connector"></div>
+
+
+    <div class="route-point">
+
+      <span class="route-marker destination"></span>
+
+      <div>
+        <small>DESTINO</small>
+
+        <strong id="drawerDestination">
+          Comunidade X
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- INFORMAÇÕES OPERACIONAIS -->
+
+  <div class="drawer-section">
+
+    <div class="drawer-section-title">
+      INFORMAÇÕES OPERACIONAIS
+    </div>
+
+    <div class="drawer-info-grid">
+
+      <div class="drawer-info">
+        <span>Modal</span>
+        <strong id="drawerModal">
+          🚤 Embarcação
+        </strong>
+      </div>
+
+      <div class="drawer-info">
+        <span>Rota</span>
+        <strong id="drawerRoute">
+          AM-07
+        </strong>
+      </div>
+
+      <div class="drawer-info">
+        <span>ETA inicial</span>
+        <strong id="drawerInitialEta">
+          16:00
+        </strong>
+      </div>
+
+      <div class="drawer-info">
+        <span>ETA atual</span>
+        <strong
+          class="drawer-eta"
+          id="drawerCurrentEta"
+        >
+          18:20
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- PREVISÃO -->
+
+  <div class="drawer-delay" id="drawerDelay">
+
+    <div class="delay-icon">
+      !
+    </div>
+
+    <div>
+      <span>ALTERAÇÃO DE PREVISÃO</span>
+
+      <strong id="drawerDelayText">
+        +2h20 de atraso estimado
+      </strong>
+
+      <small id="drawerDelayReason">
+        Atraso identificado no trecho fluvial.
+      </small>
+    </div>
+
+  </div>
+
+
+  <!-- RASTREAMENTO -->
+
+  <div class="drawer-section">
+
+    <div class="drawer-section-title">
+      RASTREAMENTO POR EVENTOS
+    </div>
+
+
+    <div
+      class="drawer-timeline"
+      id="drawerTimeline"
+    >
+
+      <div class="drawer-event completed">
+
+        <div class="event-marker">
+          ✓
+        </div>
+
+        <div class="event-content">
+          <span>08:12</span>
+
+          <strong>
+            Saiu da agência
+          </strong>
+
+          <small>
+            Agência operacional de Manaus
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="drawer-event completed">
+
+        <div class="event-marker">
+          ✓
+        </div>
+
+        <div class="event-content">
+          <span>09:03</span>
+
+          <strong>
+            Chegou ao porto
+          </strong>
+
+          <small>
+            Ponto de transferência modal
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="drawer-event completed">
+
+        <div class="event-marker">
+          ✓
+        </div>
+
+        <div class="event-content">
+          <span>09:35</span>
+
+          <strong>
+            Embarcação iniciou viagem
+          </strong>
+
+          <small>
+            Rota fluvial AM-07
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="drawer-event current">
+
+        <div class="event-marker">
+          ●
+        </div>
+
+        <div class="event-content">
+          <span>13:42</span>
+
+          <strong>
+            Ponto de transbordo
+          </strong>
+
+          <small>
+            Último evento sincronizado
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="drawer-event pending">
+
+        <div class="event-marker">
+          ○
+        </div>
+
+        <div class="event-content">
+          <span>18:20</span>
+
+          <strong>
+            Previsão de chegada
+          </strong>
+
+          <small>
+            Calculada pelo motor de previsão
+          </small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SINCRONIZAÇÃO -->
+
+  <div class="drawer-sync">
+
+    <span class="sync-indicator"></span>
+
+    <div>
+      <strong>Dados sincronizados</strong>
+
+      <small>
+        Último evento recebido às 13:42
+      </small>
+    </div>
+
+  </div>
+
+</aside>
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+  <span>✓</span>
+  <p>Dados atualizados com sucesso.</p>
+</div>                                                                                                                                                      
+  <script src="script.js"></script>  
+
+<!-- ==================================================
+     ETAPA 11A.3
+     MODAL DO LEITOR DE QR CODE
+     ================================================== -->
+
+<div
+  id="qrScannerModal"
+  class="qr-scanner-modal"
+  aria-hidden="true"
+>
+
+  <div class="qr-scanner-backdrop"></div>
+
+
+  <div class="qr-scanner-card">
+
+    <!-- CABEÇALHO -->
+
+    <div class="qr-scanner-header">
+
+      <div>
+
+        <span class="qr-scanner-label">
+          RASTREAMENTO
+        </span>
+
+        <h3>
+          Ler QR Code
+        </h3>
+
+      </div>
+
+
+      <button
+        type="button"
+        id="closeQrScannerBtn"
+        class="qr-scanner-close"
+        aria-label="Fechar leitor"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- ÁREA DA CÂMERA -->
+
+    <div class="qr-scanner-body">
+
+      <div
+        id="qrReader"
+        class="qr-reader-camera"
+      ></div>
+
+
+      <div
+        id="qrScannerStatus"
+        class="qr-scanner-status"
+      >
+
+        Aponte a câmera para o QR Code da encomenda.
+
+      </div>
+
+    </div>
+
+
+    <!-- RODAPÉ -->
+
+    <div class="qr-scanner-footer">
+
+      <button
+        type="button"
+        id="cancelQrScannerBtn"
+        class="qr-scanner-cancel"
+      >
+        Cancelar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  
+</body>
+  
+</html>
